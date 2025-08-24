@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/5b191a7148.js" crossorigin="anonymous"></script>
+  <title>Your Server Name</title>
+  <style>
+    /* =========================
+       Animations personnalisées
+    ========================== */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes bounceIn {
+      0%, 20%, 40%, 60%, 80%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 5px #fbbf24, 0 0 10px #fbbf24; }
+      50% { text-shadow: 0 0 15px #fbbf24, 0 0 30px #fbbf24; }
+      100% { text-shadow: 0 0 5px #fbbf24, 0 0 10px #fbbf24; }
+    }
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Classes */
+    .fade-in-up { animation: fadeInUp 1s ease-out forwards; }
+    .fade-delay-1 { animation-delay: 0.3s; }
+    .fade-delay-2 { animation-delay: 0.6s; }
+    .fade-delay-3 { animation-delay: 0.9s; }
+    .fade-delay-4 { animation-delay: 1.2s; }
+
+    .icon-animate:hover {
+      transform: scale(1.2) rotate(5deg);
+      color: #fbbf24;
+      animation: glowPulse 1.5s infinite;
+    }
+    .rotate-hover:hover {
+      animation: spin 1.2s linear infinite, glowPulse 1.5s infinite;
+    }
+    .tooltip {
+      animation: bounceIn 1s infinite;
+    }
+    .footer-animate {
+      animation: slideUp 1.2s ease-out forwards;
+    }
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen flex flex-col">
+  <!-- Background -->
+  <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('images/bg.png');">
+    <div class="absolute inset-0 bg-zinc-900 opacity-75"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex-grow flex items-center justify-center text-white p-4">
+    <div class="w-full max-w-lg text-center">
+      <!-- Logo -->
+      <img src="images/logo.png" alt="Logo" class="w-3/4 max-w-[20rem] h-auto object-contain mx-auto mb-6 fade-in-up">
+
+      <!-- Icons -->
+      <div class="flex space-x-8 justify-center mt-4 text-2xl sm:text-3xl md:text-4xl text-amber-600">
+        <!-- Discord -->
+        <a href="https://discord.gg/nEmqvvZVwY" target="_blank" class="transition-transform duration-300 icon-animate fade-in-up fade-delay-1">
+          <i class="fa-brands fa-discord"></i>
+        </a>
+
+        <!-- Store (tooltip) -->
+        <div class="relative group fade-in-up fade-delay-2">
+          <span class="transition-transform duration-300 icon-animate disabled">
+            <i class="fa-solid fa-store"></i>
+          </span>
+          <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap tooltip">
+            Bientôt disponible
+          </div>
+        </div>
+
+        <!-- Patch Notes -->
+        <a href="https://rackz-pvp.github.io/patchnotes/" target="_blank" class="transition-transform duration-300 icon-animate rotate-hover fade-in-up fade-delay-3">
+          <i class="fa-solid fa-arrows-rotate"></i>
+        </a>
+
+        <!-- Règles (tooltip) -->
+        <div class="relative group fade-in-up fade-delay-4">
+          <span class="transition-transform duration-300 icon-animate disabled">
+            <i class="fa-solid fa-book"></i>
+          </span>
+          <div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap tooltip">
+            Bientôt disponible
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Footer -->
+<footer class="bg-gray-900 opacity-75 text-white text-center z-0 py-2 footer-animate">
+  <span>Rackz PVP | 
+    <button 
+      onclick="copyToClipboard('rackz.minefort.com')" 
+      class="text-cyan-400 hover:underline focus:outline-none"
+    >
+      Copier le lien
+    </button>
+  </span>
+  <p id="copy-msg" class="text-green-400 text-sm mt-1 opacity-0 transition-opacity duration-500">
+    Lien copié !
+  </p>
+</footer>
+
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const msg = document.getElementById("copy-msg");
+      msg.classList.remove("opacity-0");
+      setTimeout(() => msg.classList.add("opacity-0"), 1500); // disparaît après 1,5s
+    }).catch(err => {
+      alert("Impossible de copier le lien : " + err);
+    });
+  }
+</script>
+
